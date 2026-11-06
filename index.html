@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pertinence imagerie – aide à la demande d'examen</title>
+<meta name="description" content="Aide à la prescription d'examens d'imagerie : arbre de questions fondé sur les recommandations HAS, SFR et FNMR, puis demande d'examen imprimable.">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a class="skip" href="#main">Aller au contenu</a>
+<header class="topbar">
+  <div class="wrap topbar-in">
+    <button class="brand" id="homeBtn" type="button" aria-label="Retour à l'accueil">
+      <svg viewBox="0 0 32 32" width="28" height="28" aria-hidden="true"><rect x="2" y="2" width="28" height="28" rx="7" fill="none" stroke="currentColor" stroke-width="2.4"/><path d="M9 16.5l4.5 4.5L23 11" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <span><strong>Pertinence imagerie</strong><small>Aide à la demande d'examen</small></span>
+    </button>
+    <span class="privacy" title="Aucune donnée patient n'est enregistrée ni transmise">Aucune donnée transmise</span>
+  </div>
+</header>
+
+<main id="main" class="wrap">
+  <div id="view" aria-live="polite"></div>
+</main>
+
+<footer class="foot wrap">
+  <p>Outil d'aide à la décision fondé sur les recommandations de la HAS, de la FNMR et des sociétés savantes (SFMU, SFEMC, SFCD, AFU, AFEF, SPLF, CNGOF, COFER) et du guide de prescription belge adapté du guide français 2005, citées à chaque résultat. Il ne remplace pas le jugement clinique ; le radiologue peut adapter l'examen demandé. Pour les situations non couvertes : <a href="https://aderim.radiologie.fr" target="_blank" rel="noopener">ADERIM (SFR)</a>.</p>
+  <p><a href="fiches/aide-prescription-imagerie.pdf" download>Télécharger les fiches d'aide à la prescription (PDF, 5 pages)</a></p>
+  <p>Prototype – contenu à valider par les radiologues avant diffusion.</p>
+</footer>
+
+<div id="printArea" aria-hidden="true"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" defer></script>
+<script src="data.js" defer></script>
+<script src="data2.js" defer></script>
+<script src="data3.js" defer></script>
+<script src="app.js" defer></script>
+</body>
+</html>
