@@ -15,6 +15,8 @@ const SOURCES = {
 // Examens prescriptibles (libellé imprimé sur la demande)
 const EXAMS = {
   RX_LOMB: { label: "Radiographie du rachis lombaire", irm: false },
+  RX_LOMB_DYN: { label: "Radiographies du rachis lombaire : face et profil, et profils dynamiques en flexion et en extension (recherche d'instabilité)", irm: false },
+  RX_RACHIS_CHARGE: { label: "Radiographies du rachis en charge, face et profil, grand format ou EOS (recherche de trouble statique)", irm: false },
   IRM_LOMB: { label: "IRM du rachis lombaire (scanner si contre-indication à l'IRM)", irm: true },
   RX_CRANE: { label: "Radiographie standard du crâne", irm: false },
   RX_ORBITES: { label: "Radiographie des orbites, incidence de profil (complétée si nécessaire par une incidence de face) – recherche de corps étranger intra-orbitaire", irm: false },
@@ -80,7 +82,8 @@ const TREES = {
           { label: "Douleur persistante malgré le traitement, depuis moins de 3 mois", next: "l_r_persist" },
           { label: "Lombalgie chronique (plus de 3 mois)", next: "l_r_chron" },
           { label: "Geste invasif envisagé (infiltration épidurale, voire chirurgie)", next: "l_r_geste" },
-          { label: "Recherche d'une instabilité ou d'un trouble statique rachidien", next: "l_r_stat" },
+          { label: "Recherche d'une instabilité (par exemple spondylolisthésis dont on veut savoir s'il est mobile)", next: "l_r_instab" },
+          { label: "Recherche d'un trouble statique (scoliose, trouble de l'équilibre sagittal)", next: "l_r_stat" },
           { label: "Imagerie déjà faite, symptômes inchangés", next: "l_r_renouv" }
         ]
       },
@@ -102,9 +105,12 @@ const TREES = {
       l_r_geste: { type: "result", verdict: "no", title: "Avant un geste invasif : IRM",
         text: "Si une infiltration épidurale, voire une chirurgie, est envisagée, une imagerie rachidienne par IRM (ou scanner en cas de contre-indication) est conseillée, sauf chez le patient hyperalgique pour ne pas retarder sa prise en charge.",
         alt: "IRM_LOMB", sources: ["HAS_LOMB"] },
-      l_r_stat: { type: "result", verdict: "ok", title: "Radiographie indiquée",
-        text: "La recherche d'une instabilité ou d'un trouble statique rachidien est la seule situation, sans drapeau rouge, où des radiographies isolées sont indiquées.",
-        exam: "RX_LOMB", sources: ["HAS_LOMB"] },
+      l_r_instab: { type: "result", verdict: "ok", title: "Radiographies indiquées : clichés dynamiques",
+        text: "La recherche d'une instabilité est l'une des deux situations où, sans drapeau rouge, des radiographies isolées sont indiquées (HAS 2019). Précision d'usage, non définie par la HAS : l'instabilité correspond à une mobilité anormale entre deux vertèbres et se recherche sur des profils en flexion et en extension. Les seuils les plus cités (translation de plus de 3 à 5 mm, variation d'angulation de plus de 10°) ne sont pas consensuels. Elle se justifie surtout si le résultat peut changer la prise en charge, par exemple avant une chirurgie.",
+        exam: "RX_LOMB_DYN", sources: ["HAS_LOMB"] },
+      l_r_stat: { type: "result", verdict: "ok", title: "Radiographies indiquées : clichés en charge",
+        text: "La recherche d'un trouble statique est l'une des deux situations où, sans drapeau rouge, des radiographies isolées sont indiquées (HAS 2019). Précision d'usage : le trouble statique est un défaut d'alignement global (scoliose, modification de la lordose ou de l'équilibre sagittal). Il se recherche sur des clichés en charge, de préférence en grand format ou avec un système EOS.",
+        exam: "RX_RACHIS_CHARGE", sources: ["HAS_LOMB"] },
       l_r_renouv: { type: "result", verdict: "no", title: "Pas de nouvelle imagerie",
         text: "Il n'y a pas d'indication à renouveler l'imagerie si les symptômes n'ont pas changé.",
         sources: ["HAS_LOMB"] }
@@ -430,7 +436,7 @@ const TREES = {
 const CLIN = {
   "RX_LOMB.l_urg": { any: "Signe d'urgence : ", none: "Pas de signe d'urgence neurologique" },
   "RX_LOMB.l_rf": { any: "Drapeau rouge : ", none: "Pas de drapeau rouge" },
-  "RX_LOMB.l_sit": ["Poussée aiguë de lombalgie", "Douleur persistante malgré le traitement (moins de 3 mois)", "Lombalgie chronique (plus de 3 mois)", "Geste invasif envisagé (infiltration épidurale ou chirurgie)", "Recherche d'instabilité ou de trouble statique rachidien", "Imagerie antérieure, symptômes inchangés"],
+  "RX_LOMB.l_sit": ["Poussée aiguë de lombalgie", "Douleur persistante malgré le traitement (moins de 3 mois)", "Lombalgie chronique (plus de 3 mois)", "Geste invasif envisagé (infiltration épidurale ou chirurgie)", "Recherche d'une instabilité rachidienne (spondylolisthésis mobile ?)", "Recherche d'un trouble statique rachidien", "Imagerie antérieure, symptômes inchangés"],
   "RX_CRANE.c1": { any: "Indication : ", none: "" },
   "RX_SINUS.s1": ["Dépistage d'un corps étranger intra-orbitaire", ""],
   "RX_THORAX.t1": { any: "Contexte : ", none: "" },

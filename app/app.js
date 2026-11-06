@@ -6,7 +6,8 @@
   // Examen demandé par défaut pour chaque arbre (utilisé si le prescripteur maintient sa demande)
   EXAMS.RX_SINUS = { label: "Radiographie des sinus / du massif facial", irm: false };
   const TREE_EXAM = { RX_LOMB: "RX_LOMB", RX_CRANE: "RX_CRANE", RX_SINUS: "RX_SINUS", RX_THORAX: "RX_THORAX", ASP: "ASP", RX_GENOU: "RX_GENOU", IRM_GENOU: "IRM_GENOU" };
-  const ORDER = ["RX_LOMB", "RX_CRANE", "RX_SINUS", "RX_THORAX", "ASP", "RX_GENOU", "IRM_GENOU"];
+  const ORDER = ["CEPH_AD", "CEPH_ENF", "TC_AD", "RX_CRANE", "RX_SINUS", "THYRO", "RX_LOMB", "CERV", "EPAULE", "HANCHE", "POIGNET", "RX_GENOU", "IRM_GENOU", "CHEVILLE", "RX_THORAX", "ABDO", "APPENDICITE", "APPENDICITE_ENF", "PELVIS", "ASP", "COLIQUE", "TVP", "SEIN", "OSTEO", "POUMON"];
+  const GROUP_ORDER = ["Tête et cou", "Rachis", "Membres", "Thorax", "Abdomen et vaisseaux", "Os et dépistages"];
 
   // État en mémoire uniquement (aucune donnée patient conservée)
   let state = { tree: null, node: null, history: [], answers: [], clin: [] };
@@ -18,25 +19,36 @@
   const top = () => window.scrollTo({ top: 0, behavior: "instant" in window ? "instant" : "auto" });
 
   // ───────────── Accueil
-  function renderHome() {
+  function renderHome(filter) {
     state = { tree: null, node: null, history: [], answers: [], clin: [] };
+    const q = (filter || "").trim().toLowerCase();
+    const norm = (t) => t.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
     const groups = {};
-    ORDER.forEach((id) => { const t = TREES[id]; (groups[t.group] = groups[t.group] || []).push(id); });
+    ORDER.forEach((id) => {
+      const t = TREES[id];
+      if (q && !norm(t.title + " " + t.context + " " + t.group).includes(norm(q))) return;
+      (groups[t.group] = groups[t.group] || []).push(id);
+    });
+    const ordered = GROUP_ORDER.filter((g) => groups[g]);
     $view.innerHTML = `
       <p class="eyebrow">Aide à la prescription</p>
-      <h1>Quel examen souhaitez-vous prescrire ?</h1>
-      <p class="lead">Répondez à quelques questions : l'outil indique si l'examen est pertinent selon les recommandations, propose une alternative si besoin, puis prépare la demande d'examen à imprimer.</p>
-      ${Object.entries(groups).map(([g, ids]) => `
+      <h1>Quelle situation clinique ?</h1>
+      <p class="lead">Choisissez la situation ou l'examen envisagé. Quelques questions suffisent pour savoir si une imagerie est recommandée, laquelle, puis préparer la demande à imprimer.</p>
+      <div class="search"><label for="q" class="sr">Rechercher</label>
+        <input type="search" id="q" placeholder="Rechercher : genou, IRM, thyroïde, céphalée…" value="${esc(filter || "")}" autocomplete="off"></div>
+      ${ordered.length ? ordered.map((g) => `
         <section class="group" aria-label="${esc(g)}">
           <h3>${esc(g)}</h3>
-          <div class="cards">${ids.map((id) => `
+          <div class="cards">${groups[g].map((id) => `
             <button class="card" type="button" data-tree="${id}">
               <strong>${esc(TREES[id].title)}</strong><span>${esc(TREES[id].context)}</span>
             </button>`).join("")}
           </div>
-        </section>`).join("")}`;
+        </section>`).join("") : `<p class="empty">Aucune situation ne correspond à « ${esc(filter)} ». Essayez un autre mot, ou consultez <a href="https://aderim.radiologie.fr" target="_blank" rel="noopener">ADERIM</a>.</p>`}`;
     $view.querySelectorAll("[data-tree]").forEach((b) => b.addEventListener("click", () => startTree(b.dataset.tree)));
-    top();
+    const inp = document.getElementById("q");
+    inp.addEventListener("input", () => { const v = inp.value; renderHome(v); const n = document.getElementById("q"); n.focus(); n.setSelectionRange(v.length, v.length); });
+    if (!filter) top();
   }
 
   function startTree(id) {
@@ -100,7 +112,7 @@
         </div>
       </div>`;
     document.getElementById("backBtn").onclick = back;
-    document.getElementById("restartBtn").onclick = renderHome;
+    document.getElementById("restartBtn").onclick = () => renderHome();
     if (n.type === "question") {
       $view.querySelectorAll(".opt").forEach((b) => b.addEventListener("click", () => {
         const i = +b.dataset.i, o = n.options[i];
@@ -143,18 +155,19 @@
   function renderResult(n) {
     const tree = TREES[state.tree];
     const v = VERDICT[n.verdict];
-    const requested = TREE_EXAM[state.tree];
+    const reqList = tree.requestable || (TREE_EXAM[state.tree] ? [TREE_EXAM[state.tree]] : []);
     let actions = "";
     if (n.exam) {
       actions += `<button class="btn btn-primary" type="button" data-act="exam">Rédiger la demande : ${esc(shortLabel(n.exam))}</button>`;
     }
+    if (n.goto) actions += `<button class="btn btn-primary" type="button" data-act="goto">Ouvrir le parcours : ${esc(TREES[n.goto].title)}</button>`;
     (n.exams || []).forEach((id, i) => {
       actions += `<button class="btn ${i === 0 ? "btn-primary" : "btn-ghost"}" type="button" data-act="exams" data-ex="${id}">Rédiger la demande : ${esc(shortLabel(id))}</button>`;
     });
     if (n.alt) {
       actions += `<button class="btn btn-primary" type="button" data-act="alt">Prescrire à la place : ${esc(shortLabel(n.alt))}</button>`;
     }
-    const canOverride = (n.verdict === "no" || n.verdict === "discuss") && !n.exam && !n.exams;
+    const canOverride = (n.verdict === "no" || n.verdict === "discuss") && !n.exam && !n.exams && !n.goto && reqList.length > 0;
     $view.innerHTML = `
       <p class="eyebrow">${esc(tree.title)} · Résultat</p>
       <div class="panel">
@@ -168,7 +181,9 @@
         <div class="actions-col">${actions}</div>
         ${canOverride ? `
         <details class="override">
-          <summary class="btn btn-link">Je maintiens ma demande de « ${esc(EXAMS[requested].label)} »</summary>
+          <summary class="btn btn-link">Je souhaite quand même prescrire un examen</summary>
+          ${reqList.length > 1 ? `<div class="field" style="margin-top:var(--space-4)"><label for="reqSel">Examen</label>
+            <select id="reqSel">${reqList.map((id) => `<option value="${id}">${esc(EXAMS[id].label)}</option>`).join("")}</select></div>` : (reqList.length ? `<p class="exam-box" style="margin-top:var(--space-4)">${esc(EXAMS[reqList[0]].label)}</p>` : "")}
           <div class="field" style="margin-top:var(--space-4)">
             <label for="just">Justification clinique (obligatoire)</label>
             <span class="hint">La demande portera la mention « hors recommandation ». Le radiologue pourra la réévaluer avec vous.</span>
@@ -183,15 +198,17 @@
         </div>
       </div>`;
     document.getElementById("backBtn").onclick = back;
-    document.getElementById("restartBtn").onclick = renderHome;
+    document.getElementById("restartBtn").onclick = () => renderHome();
     const conf = { verdict: n.verdict, title: n.title, sources: n.sources };
     $view.querySelector('[data-act="exam"]')?.addEventListener("click", () => renderForm(n.exam, conf, null));
+    $view.querySelector('[data-act="goto"]')?.addEventListener("click", () => startTree(n.goto));
     $view.querySelectorAll('[data-act="exams"]').forEach((b) => b.addEventListener("click", () => renderForm(b.dataset.ex, conf, null)));
     $view.querySelector('[data-act="alt"]')?.addEventListener("click", () => renderForm(n.alt, { verdict: "ok", title: "Alternative recommandée : " + n.title, sources: n.sources }, null));
     $view.querySelector('[data-act="override"]')?.addEventListener("click", () => {
       const j = document.getElementById("just").value.trim();
       if (!j) { document.getElementById("justErr").hidden = false; return; }
-      renderForm(requested, { verdict: "override", title: n.title, sources: n.sources }, j);
+      const chosen = document.getElementById("reqSel")?.value || reqList[0];
+      renderForm(chosen, { verdict: "override", title: n.title, sources: n.sources }, j);
     });
     top();
   }
@@ -331,7 +348,7 @@
       <p class="err" id="pdfErr" hidden></p>
       <div class="row-actions" style="justify-content:flex-start"><button class="btn btn-link" type="button" id="newBtn">Nouvelle demande</button></div>`;
     document.getElementById("editBtn").onclick = () => renderForm(examId, conf, justification);
-    document.getElementById("newBtn").onclick = renderHome;
+    document.getElementById("newBtn").onclick = () => renderHome();
     document.getElementById("printBtn").onclick = () => { $print.innerHTML = docHTML(d); window.print(); };
     document.getElementById("pdfBtn").onclick = () => downloadPDF(d);
     top();
@@ -406,6 +423,6 @@
     }
   }
 
-  document.getElementById("homeBtn").addEventListener("click", renderHome);
+  document.getElementById("homeBtn").addEventListener("click", () => renderHome());
   renderHome();
 })();

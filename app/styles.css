@@ -142,10 +142,9 @@ input:focus,textarea:focus,select:focus{border-color:var(--primary);outline:none
 .foot{font-size:var(--text-xs);color:var(--muted);padding-bottom:var(--space-10)}
 .foot p{margin:0 0 var(--space-2);max-width:75ch}
 
-/* Ajustements mobiles (QA) */
-@media (max-width:640px){
-  .crumbs li{white-space:normal;overflow:visible}
-  .row-actions:not(:has(.btn-primary,.btn-ghost)){flex-direction:column;align-items:flex-start;gap:var(--space-1)}
-  .row-actions:not(:has(.btn-primary,.btn-ghost)) .btn-link{width:auto;align-self:flex-start}
-  .doc .d-head div{min-width:0}
-}
+.search{margin:0 0 var(--space-6)}
+.search input{width:100%;font:inherit;font-size:var(--text-base);padding:var(--space-3) var(--space-4);border:1.5px solid var(--border);border-radius:var(--radius-sm);background:var(--surface);min-height:48px}
+.search input:focus{border-color:var(--primary);outline:none;box-shadow:0 0 0 3px rgba(29,78,137,.15)}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+.empty{color:var(--muted)}
+select{width:100%}

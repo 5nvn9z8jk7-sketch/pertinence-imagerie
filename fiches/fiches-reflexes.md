@@ -12,7 +12,7 @@ Pour toute situation hors fiche, consultez [ADERIM (SFR)](https://aderim.radiolo
 
 | Thème | Règle par défaut | Exceptions principales | Alternative si une imagerie est justifiée |
 |---|---|---|---|
-| Radio du rachis lombaire (lombalgie commune) | **Pas d'examen** | Drapeaux rouges, urgences, échec du traitement | Selon le contexte clinique |
+| Radio du rachis lombaire (lombalgie commune) | **Pas d'examen** | Urgences, drapeaux rouges (HAS 2019), recherche d'instabilité ou de trouble statique | IRM si lombalgie chronique ou geste invasif envisagé |
 | Radio du crâne | **Pas d'indication** en règle générale | Maltraitance de l'enfant, myélome, pathologies osseuses | TDM ou IRM |
 | Radio des sinus et du massif facial | **Pas d'indication**, sauf exception | Corps étranger intra-orbitaire (dépistage) | TDM ou IRM |
 | Radio du thorax | Utile dans de nombreuses situations, mais **liste précise de non-indications** | — | TDM, IRM, échographie-doppler selon le cas |
@@ -23,46 +23,42 @@ Pour toute situation hors fiche, consultez [ADERIM (SFR)](https://aderim.radiolo
 
 ## 1. Lombalgie commune – radiographie du rachis lombaire
 
-**Message clé : l'inutilité de la radiographie standard pour la lombalgie commune a été démontrée dans de multiples situations cliniques** ([FNMR](https://fnmr.fr/pertinence-en-imagerie-medicale/)).
+Référence : fiche HAS 2019, plus récente que la fiche FNMR ([HAS – lombalgie commune](https://www.has-sante.fr/jcms/c_2961499/fr/prise-en-charge-du-patient-presentant-une-lombalgie-commune)). Les urgences reprennent la fiche FNMR ([FNMR](https://fnmr.fr/pertinence-en-imagerie-medicale/)).
 
-### Arbre décisionnel
+**Message clé : sans drapeau rouge, une poussée aiguë de lombalgie ne justifie aucune imagerie (grade C), et la radiographie isolée n'est indiquée que pour rechercher une instabilité ou un trouble statique.**
 
-```
-Demande de radio lombaire pour lombalgie
-│
-├─ Signe d'URGENCE ?
-│    • Sciatique hyperalgique rebelle aux opiacés
-│    • Sciatique paralysante (déficit < 3 MRC ou progressif)
-│    • Syndrome de la queue de cheval
-│    └─ OUI → imagerie possible (contact radiologue)
-│
-├─ DRAPEAU ROUGE (lombalgie spécifique) ?
-│    Fracture   : traumatisme important récent, corticothérapie prolongée, âge > 70 ans
-│    Néoplasie  : âge > 50 ans, AEG / perte de poids inexpliquée, ATCD tumoral
-│    Infection  : fièvre, douleur de repos aggravée / nocturne, infection urinaire,
-│                 immunodépression, drogues IV
-│    └─ OUI → imagerie possible
-│
-├─ SOUS TRAITEMENT ?
-│    • Pas d'évolution favorable sous traitement symptomatique
-│    • Éliminer une lombalgie spécifique avant manipulation ou infiltration
-│    └─ OUI → imagerie possible
-│
-└─ AUCUN de ces critères → PAS D'EXAMEN
-```
+### Étape 1 – Urgence
 
-### Tableau des drapeaux rouges
+Sciatique hyperalgique rebelle aux opiacés · sciatique paralysante (déficit < 3 MRC ou progressif) · syndrome de la queue de cheval → examen en urgence et/ou avis spécialisé.
 
-| Catégorie | Critères |
+### Étape 2 – Drapeaux rouges (HAS 2019)
+
+| Catégorie | Signes |
 |---|---|
-| Urgence | Sciatique hyperalgique rebelle aux opiacés · sciatique paralysante (déficit moteur < 3 sur l'échelle MRC ou progressif) · syndrome de la queue de cheval |
-| Fracture | Traumatisme important récent · corticothérapie prolongée · âge > 70 ans |
-| Néoplasie | Âge > 50 ans · altération de l'état général, perte de poids inexpliquée · antécédent tumoral |
-| Infection | Fièvre · douleur au repos, d'aggravation progressive, à recrudescence nocturne · infection urinaire · immunodépression · drogues IV |
-| Sous traitement | Absence d'évolution favorable sous traitement symptomatique · élimination formelle d'une lombalgie spécifique avant manipulation ou infiltration |
+| Douleur et neurologie | Douleur non mécanique (aggravation progressive, au repos, nocturne) · symptôme neurologique étendu (sphincters, atteinte motrice des jambes, queue de cheval) · paresthésies du pubis ou du périnée · rachialgies dorsales · déformation structurale importante |
+| Terrain et contexte | Traumatisme important (chute de hauteur) · début avant 20 ans ou après 55 ans · antécédent de cancer · drogue IV ou corticoïdes au long cours |
+| Signes généraux | Fièvre, syndrome fébrile · altération de l'état général · perte de poids inexpliquée |
 
-- **Réflexe accueil :** une demande « lombalgie » sans mention de critère ci-dessus est montrée au radiologue avant d'être réalisée.
-- **Phrase type :** « Radiographie non réalisée : lombalgie commune sans signe d'alerte, situation où la radiographie n'est pas recommandée (HAS / SFR). À reconsidérer en cas d'échec du traitement ou d'apparition d'un signe d'alerte. »
+Drapeau rouge présent : il ne s'agit plus d'une lombalgie commune ; imagerie justifiée, examen adapté à la pathologie suspectée. Pris isolément, ces signes ont une spécificité limitée : c'est leur combinaison qui doit alerter.
+
+### Étape 3 – Sans drapeau rouge
+
+| Situation | Conduite (HAS 2019) |
+|---|---|
+| Poussée aiguë, avec ou sans radiculalgie | Pas d'imagerie (grade C) ; expliquer au patient ; réévaluer à 2-4 semaines |
+| Douleur persistante malgré le traitement, moins de 3 mois | Pas de radiographie isolée ; réévaluer et rechercher les drapeaux rouges |
+| Lombalgie chronique (plus de 3 mois) | IRM (scanner si contre-indication) |
+| Geste invasif envisagé (infiltration épidurale, voire chirurgie) | IRM (scanner si contre-indication), sauf patient hyperalgique |
+| Recherche d'une instabilité* : mobilité anormale entre deux vertèbres (ex. spondylolisthésis : est-il mobile ?) | Radiographies avec profils dynamiques en flexion et en extension |
+| Recherche d'un trouble statique* : défaut d'alignement global (scoliose, lordose, équilibre sagittal) | Radiographies en charge, de préférence grand format ou EOS |
+| Imagerie déjà faite, symptômes inchangés | Pas de nouvelle imagerie |
+
+\* Précision d'usage, non définie par la HAS. Seuils d'instabilité les plus cités sur les profils dynamiques : translation de plus de 3 à 5 mm ou variation d'angulation de plus de 10°, sans consensus ([Radiopaedia](https://radiopaedia.org/articles/degenerative-spinal-instability)). À demander surtout si le résultat peut changer la prise en charge (bilan avant chirurgie).
+
+- **Réflexe accueil :** toute demande de radio lombaire sans signe d'alerte ni recherche d'instabilité ou de trouble statique mentionnés est montrée au radiologue.
+- **Phrase type :** « Radiographie non réalisée : lombalgie commune sans drapeau rouge, radiographie non recommandée (HAS 2019). Au-delà de 3 mois ou avant un geste invasif : IRM. »
+
+> Différence avec l'ancienne fiche FNMR : celle-ci autorisait une imagerie en cas d'échec du traitement symptomatique ou avant manipulation. La HAS 2019 ne retient pas ces situations pour la radiographie.
 
 ---
 
@@ -209,3 +205,27 @@ Demande d'ASP
 - [ADERIM – Aide à la demande d'examens de radiologie et d'imagerie médicale (SFR)](https://aderim.radiologie.fr)
 
 > Limites : ces fiches reprennent les fiches FNMR fondées sur les recommandations HAS et SFR, y compris le rapport HAS d'octobre 2008 pour le crâne. Elles ne remplacent pas le jugement clinique ni le dialogue avec le prescripteur. Les « phrases types » et « réflexes accueil » sont des propositions organisationnelles, pas des recommandations officielles.
+
+---
+
+## 5. Genou : radio avant IRM (adulte)
+
+Source : fiches HAS / CNP G4 de juin 2022, [gonalgie non traumatique](https://www.has-sante.fr/upload/docs/application/pdf/2022-06/app_445_fiche_imagerie_gonalgie_non_trauma_mel_2022-06-24_12-03-4_460.pdf) et [gonalgie après traumatisme](https://www.has-sante.fr/upload/docs/application/pdf/2022-06/app_445_fiche_imagerie_gonalgie_post_trauma_mel.pdf).
+
+**Message clé : radiographies en 1re intention, pas d'IRM en 1re intention, avec ou sans traumatisme.**
+
+| Situation | Conduite |
+|---|---|
+| Arthrite septique suspectée | Ponction articulaire (et hémocultures) en urgence, avant antibiothérapie ; prise en charge spécialisée |
+| Luxation fémoro-tibiale | Hospitalisation, avis chirurgical, angioscanner en urgence |
+| Non traumatique, 1er épisode ou épisode inhabituel | Radios (face + profil en charge ; défilé 30° si fémoro-patellaire ; Schuss si arthrose fémoro-tibiale ; bilatéral) – pas d'IRM |
+| Pathologie connue, symptômes habituels | Pas de nouvelle imagerie |
+| Arthrose typique (> 40 ans, évolution typique) | Pas d'autre imagerie |
+| Arthrose + atypie, aggravation rapide inattendue, changement clinique | IRM |
+| Radios ± écho non contributives, douleur persistante | IRM après réévaluation ; penser douleur projetée |
+| Traumatisme, aucun critère d'Ottawa | Pas de radio, réévaluation |
+| Critère d'Ottawa (≥ 55 ans, douleur isolée patella, tête de fibula, flexion < 90°, appui impossible 4 pas) | Radios |
+| Radios normales + fracture occulte / blocage vrai / lésion ménisco-ligamentaire | Scanner < 48 h / avis chirurgical / IRM à distance si elle conditionne la prise en charge |
+| À distance d'un traumatisme, sans radio | Commencer par les radios |
+
+61 % des patients ayant eu une IRM du membre inférieur n'avaient pas eu la radiographie préalable recommandée ([HAS 2023](https://www.has-sante.fr/upload/docs/application/pdf/2023-09/has-103_rapport_irm_membre_inferieur_cd_2023-05-17_vd.pdf)).
